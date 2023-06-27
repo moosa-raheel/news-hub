@@ -5,20 +5,17 @@ export default class NewsItem extends Component {
       <>
         <div className="card">
           <div className="card-img">
-            <img
-              src="https://code.visualstudio.com/assets/docs/languages/javascript/overview.png"
-              alt="justin"
-            />
+            <img src={this.props.img} alt="News Image" />
           </div>
           <div className="card-cont">
-            <h3>Justin Bieber</h3>
-            <p>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Quas
-              libero quae culpa, sint distinctio consequuntur numquam eligendi
-              nesciunt vel tempore, laudantium voluptatem nisi neque corrupti
-              minima doloremque nobis? Vero, voluptate!
-            </p>
-            <a href="/" className="btn">
+            <h3>{this.props.title}</h3>
+            <p>{this.props.desc}</p>
+            <a
+              href={this.props.link}
+              className="btn"
+              target="_blank"
+              rel="noreferrer"
+            >
               Read More
             </a>
           </div>

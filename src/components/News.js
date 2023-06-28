@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import NewsItem from "./NewsItem";
-// import JSON from "../json";
 export default class News extends Component {
   constructor() {
     super();
@@ -50,6 +49,14 @@ export default class News extends Component {
               />
             );
           })}
+        </div>
+        <div className="container button">
+          <button>
+            <span>&larr;</span> Previous
+          </button>
+          <button>
+            Next <span>&rarr;</span>
+          </button>
         </div>
       </>
     );

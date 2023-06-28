@@ -5,7 +5,7 @@ export default class NewsItem extends Component {
       <>
         <div className="card">
           <div className="card-img">
-            <img src={this.props.img} alt="News Image" />
+            <img src={this.props.img} alt="News" />
           </div>
           <div className="card-cont">
             <h3>{this.props.title}</h3>

@@ -1,26 +1,64 @@
 import React, { Component } from "react";
 import NewsItem from "./NewsItem";
 export default class News extends Component {
-  constructor() {
+  constructor(props) {
     super();
     this.state = {
       article: [],
       loading: true,
+      page: 1,
     };
   }
   componentDidMount() {
     fetch(
-      "https://newsapi.org/v2/everything?q=pakistan&sortBy=publishedAt&apiKey=264d29253b47449098440fda320fb10d"
+      `https://newsapi.org/v2/everything?q=pakistan&sortBy=publishedAt&apiKey=264d29253b47449098440fda320fb10d&page=${this.state.page}&pagesize=20`
     )
       .then((response) => response.json())
       .then((data) => {
-        console.log(data);
         this.setState({
           article: data.articles,
           loading: false,
+          numarticle: data.totalResults,
         });
       });
   }
+  prev = async () => {
+    const a = fetch(
+      `https://newsapi.org/v2/everything?q=pakistan&sortBy=publishedAt&apiKey=264d29253b47449098440fda320fb10d&page=${
+        this.state.page - 1
+      } &pagesize=20`
+    );
+    const b = (await a).json();
+    const c = await b;
+    this.setState({
+      page: this.state.page - 1,
+      article: c.articles,
+    });
+  };
+  next = async () => {
+    if (this.state.page > Math.ceil(this.state.numarticle) / 20) {
+    } else {
+      const a = fetch(
+        `https://newsapi.org/v2/everything?q=pakistan&sortBy=publishedAt&apiKey=264d29253b47449098440fda320fb10d&page=${
+          this.state.page + 1
+        } &pagesize=20`
+      );
+      const b = (await a).json();
+      const c = await b;
+      this.setState({
+        page: this.state.page + 1,
+        article: c.articles,
+      });
+    }
+  };
+  btnDisable = {
+    opacity: 0.5,
+    cursor: "not-allowed",
+  };
+  btnEnable = {
+    opacity: 1,
+    cursor: "pointer",
+  };
   render() {
     return (
       <>
@@ -51,10 +89,14 @@ export default class News extends Component {
           })}
         </div>
         <div className="container button">
-          <button>
+          <button
+            disabled={this.state.page <= 1 ? true : false}
+            onClick={this.prev}
+            style={this.state.page <= 1 ? this.btnDisable : this.btnEnable}
+          >
             <span>&larr;</span> Previous
           </button>
-          <button>
+          <button onClick={this.next}>
             Next <span>&rarr;</span>
           </button>
         </div>

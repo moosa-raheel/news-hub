@@ -148,6 +148,26 @@ button span {
   font-size: 2rem;
   font-weight: 900;
 }
+form.search {
+  display: flex;
+  justify-content: space-between;
+  margin: 1rem auto;
+}
+form.search input[type="search"] {
+  display: block;
+  width: 70%;
+  padding: 1rem;
+}
+form.search input[type="submit"] {
+  display: block;
+  width: 20%;
+  background: var(--blue);
+  color: var(--other);
+  font-weight: 700;
+  border: none;
+  outline: none;
+  font-size: 1.6rem;
+}
 /* ################################### */
 /* Spinner */
 /* ################################### */

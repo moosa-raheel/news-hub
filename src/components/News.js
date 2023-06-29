@@ -12,7 +12,11 @@ export default class News extends Component {
   }
   componentDidMount() {
     fetch(
-      `https://newsapi.org/v2/everything?q=netflix&sortBy=publishedAt&apiKey=264d29253b47449098440fda320fb10d&page=${this.state.page}&pagesize=20`
+      `https://newsapi.org/v2/everything?q=${
+        this.keyword ? this.keyword : "pakistan"
+      }&sortBy=publishedAt&apiKey=264d29253b47449098440fda320fb10d&page=${
+        this.state.page
+      }&pagesize=20`
     )
       .then((response) => response.json())
       .then((data) => {
@@ -23,10 +27,13 @@ export default class News extends Component {
         });
       });
   }
+  keyword = "";
   prev = async () => {
     this.setState({ loading: true, article: [] });
     const a = fetch(
-      `https://newsapi.org/v2/everything?q=netflix&sortBy=publishedAt&apiKey=264d29253b47449098440fda320fb10d&page=${
+      `https://newsapi.org/v2/everything?q=${
+        this.keyword ? this.keyword : "pakistan"
+      }&sortBy=publishedAt&apiKey=264d29253b47449098440fda320fb10d&page=${
         this.state.page - 1
       } &pagesize=20`
     );
@@ -43,7 +50,9 @@ export default class News extends Component {
     if (this.state.page > Math.ceil(this.state.numarticle) / 20) {
     } else {
       const a = fetch(
-        `https://newsapi.org/v2/everything?q=netflix&sortBy=publishedAt&apiKey=264d29253b47449098440fda320fb10d&page=${
+        `https://newsapi.org/v2/everything?q=${
+          this.keyword ? this.keyword : "pakistan"
+        }&sortBy=publishedAt&apiKey=264d29253b47449098440fda320fb10d&page=${
           this.state.page + 1
         } &pagesize=20`
       );
@@ -56,6 +65,21 @@ export default class News extends Component {
       });
     }
   };
+  search = async (event) => {
+    this.keyword = document.querySelector("#search").value;
+    fetch(
+      `https://newsapi.org/v2/everything?q=${this.keyword}&sortBy=publishedAt&apiKey=264d29253b47449098440fda320fb10d&page=${this.state.page}&pagesize=20`
+    )
+      .then((response) => response.json())
+      .then((data) => {
+        this.setState({
+          article: data.articles,
+          loading: false,
+          numarticle: data.totalResults,
+        });
+      });
+    event.preventDefault();
+  };
   btnDisable = {
     opacity: 0.5,
     cursor: "not-allowed",
@@ -67,6 +91,10 @@ export default class News extends Component {
   render() {
     return (
       <>
+        <form className="search container" onSubmit={this.search}>
+          <input type="search" id="search" placeholder="Search News" required />
+          <input type="submit" value="Search" />
+        </form>
         <h1 className="text-center news-head">News-Hub - Headlines</h1>
         {this.state.loading ? <Spinner /> : ""}
         <div className="container main">

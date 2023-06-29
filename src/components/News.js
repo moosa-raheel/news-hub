@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import NewsItem from "./NewsItem";
+import Spinner from "./Spinner";
 export default class News extends Component {
   constructor(props) {
     super();
@@ -11,7 +12,7 @@ export default class News extends Component {
   }
   componentDidMount() {
     fetch(
-      `https://newsapi.org/v2/everything?q=pakistan&sortBy=publishedAt&apiKey=264d29253b47449098440fda320fb10d&page=${this.state.page}&pagesize=20`
+      `https://newsapi.org/v2/everything?q=netflix&sortBy=publishedAt&apiKey=264d29253b47449098440fda320fb10d&page=${this.state.page}&pagesize=20`
     )
       .then((response) => response.json())
       .then((data) => {
@@ -23,8 +24,9 @@ export default class News extends Component {
       });
   }
   prev = async () => {
+    this.setState({ loading: true, article: [] });
     const a = fetch(
-      `https://newsapi.org/v2/everything?q=pakistan&sortBy=publishedAt&apiKey=264d29253b47449098440fda320fb10d&page=${
+      `https://newsapi.org/v2/everything?q=netflix&sortBy=publishedAt&apiKey=264d29253b47449098440fda320fb10d&page=${
         this.state.page - 1
       } &pagesize=20`
     );
@@ -33,13 +35,15 @@ export default class News extends Component {
     this.setState({
       page: this.state.page - 1,
       article: c.articles,
+      loading: false,
     });
   };
   next = async () => {
+    this.setState({ loading: true, article: [] });
     if (this.state.page > Math.ceil(this.state.numarticle) / 20) {
     } else {
       const a = fetch(
-        `https://newsapi.org/v2/everything?q=pakistan&sortBy=publishedAt&apiKey=264d29253b47449098440fda320fb10d&page=${
+        `https://newsapi.org/v2/everything?q=netflix&sortBy=publishedAt&apiKey=264d29253b47449098440fda320fb10d&page=${
           this.state.page + 1
         } &pagesize=20`
       );
@@ -48,6 +52,7 @@ export default class News extends Component {
       this.setState({
         page: this.state.page + 1,
         article: c.articles,
+        loading: false,
       });
     }
   };
@@ -63,6 +68,7 @@ export default class News extends Component {
     return (
       <>
         <h1 className="text-center news-head">News-Hub - Headlines</h1>
+        {this.state.loading ? <Spinner /> : ""}
         <div className="container main">
           {this.state.article.map((element) => {
             return (
@@ -96,7 +102,19 @@ export default class News extends Component {
           >
             <span>&larr;</span> Previous
           </button>
-          <button onClick={this.next}>
+          <button
+            disabled={
+              this.state.page > Math.ceil(this.state.numarticle) / 20
+                ? true
+                : false
+            }
+            onClick={this.next}
+            style={
+              this.state.page > Math.ceil(this.state.numarticle) / 20
+                ? this.btnDisable
+                : this.btnEnable
+            }
+          >
             Next <span>&rarr;</span>
           </button>
         </div>

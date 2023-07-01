@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import NewsItem from "./NewsItem";
 import Spinner from "./Spinner";
 export default class News extends Component {
-  constructor(props) {
+  constructor() {
     super();
     this.state = {
       article: [],
@@ -13,10 +13,10 @@ export default class News extends Component {
   componentDidMount() {
     fetch(
       `https://newsapi.org/v2/everything?q=${
-        this.keyword ? this.keyword : "pakistan"
+        this.keyword ? this.keyword : this.props.cat
       }&sortBy=publishedAt&apiKey=264d29253b47449098440fda320fb10d&page=${
         this.state.page
-      }&pagesize=20`
+      }&pagesize=10`
     )
       .then((response) => response.json())
       .then((data) => {
@@ -32,10 +32,10 @@ export default class News extends Component {
     this.setState({ loading: true, article: [] });
     const a = fetch(
       `https://newsapi.org/v2/everything?q=${
-        this.keyword ? this.keyword : "pakistan"
+        this.keyword ? this.keyword : this.props.cat
       }&sortBy=publishedAt&apiKey=264d29253b47449098440fda320fb10d&page=${
         this.state.page - 1
-      } &pagesize=20`
+      } &pagesize=10`
     );
     const b = (await a).json();
     const c = await b;
@@ -51,10 +51,10 @@ export default class News extends Component {
     } else {
       const a = fetch(
         `https://newsapi.org/v2/everything?q=${
-          this.keyword ? this.keyword : "pakistan"
+          this.keyword ? this.keyword : this.props.cat
         }&sortBy=publishedAt&apiKey=264d29253b47449098440fda320fb10d&page=${
           this.state.page + 1
-        } &pagesize=20`
+        } &pagesize=10`
       );
       const b = (await a).json();
       const c = await b;
@@ -68,7 +68,7 @@ export default class News extends Component {
   search = async (event) => {
     this.keyword = document.querySelector("#search").value;
     fetch(
-      `https://newsapi.org/v2/everything?q=${this.keyword}&sortBy=publishedAt&apiKey=264d29253b47449098440fda320fb10d&page=${this.state.page}&pagesize=20`
+      `https://newsapi.org/v2/everything?q=${this.keyword}&sortBy=publishedAt&apiKey=264d29253b47449098440fda320fb10d&page=${this.state.page}&pagesize=10`
     )
       .then((response) => response.json())
       .then((data) => {

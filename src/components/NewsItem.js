@@ -3,7 +3,7 @@ export default class NewsItem extends Component {
   render() {
     return (
       <>
-        <div className="card">
+        <div className="card" data-aos="flip-up">
           <div className="card-img">
             <img src={this.props.img} alt="News" />
           </div>

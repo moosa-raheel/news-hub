@@ -21,11 +21,11 @@ export default class App extends Component {
             />
             <Route
               path="/tech"
-              element={<News cat="technology" key={"entertainment"} />}
+              element={<News cat="technology" key={"technology"} />}
             />
             <Route
               path="/sports"
-              element={<News cat="sports" key={"entertainment"} />}
+              element={<News cat="sports" key={"sports"} />}
             />
           </Routes>
         </BrowserRouter>

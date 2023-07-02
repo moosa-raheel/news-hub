@@ -10,6 +10,10 @@ export default class NewsItem extends Component {
           <div className="card-cont">
             <h3>{this.props.title}</h3>
             <p>{this.props.desc}</p>
+            <span>
+              Post by {this.props.author} at{" "}
+              {new Date(this.props.date).toGMTString()}
+            </span>
             <a
               href={this.props.link}
               className="btn"
@@ -19,6 +23,7 @@ export default class NewsItem extends Component {
               Read More
             </a>
           </div>
+          <p className="source">{this.props.source}</p>
         </div>
       </>
     );

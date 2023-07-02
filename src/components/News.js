@@ -25,44 +25,55 @@ export default class News extends Component {
           loading: false,
           numarticle: data.totalResults,
         });
+      })
+      .catch((error) => {
+        console.log(error);
       });
   }
   keyword = "";
   prev = async () => {
     this.setState({ loading: true, article: [] });
-    const a = fetch(
-      `https://newsapi.org/v2/everything?q=${
-        this.keyword ? this.keyword : this.props.cat
-      }&sortBy=publishedAt&apiKey=264d29253b47449098440fda320fb10d&page=${
-        this.state.page - 1
-      } &pagesize=10`
-    );
-    const b = (await a).json();
-    const c = await b;
-    this.setState({
-      page: this.state.page - 1,
-      article: c.articles,
-      loading: false,
-    });
-  };
-  next = async () => {
-    this.setState({ loading: true, article: [] });
-    if (this.state.page > Math.ceil(this.state.numarticle) / 20) {
-    } else {
+    try {
       const a = fetch(
         `https://newsapi.org/v2/everything?q=${
           this.keyword ? this.keyword : this.props.cat
         }&sortBy=publishedAt&apiKey=264d29253b47449098440fda320fb10d&page=${
-          this.state.page + 1
+          this.state.page - 1
         } &pagesize=10`
       );
       const b = (await a).json();
       const c = await b;
       this.setState({
-        page: this.state.page + 1,
+        page: this.state.page - 1,
         article: c.articles,
         loading: false,
       });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  next = async () => {
+    try {
+      this.setState({ loading: true, article: [] });
+      if (this.state.page > Math.ceil(this.state.numarticle) / 20) {
+      } else {
+        const a = fetch(
+          `https://newsapi.org/v2/everything?q=${
+            this.keyword ? this.keyword : this.props.cat
+          }&sortBy=publishedAt&apiKey=264d29253b47449098440fda320fb10d&page=${
+            this.state.page + 1
+          } &pagesize=10`
+        );
+        const b = (await a).json();
+        const c = await b;
+        this.setState({
+          page: this.state.page + 1,
+          article: c.articles,
+          loading: false,
+        });
+      }
+    } catch (error) {
+      console.log(error);
     }
   };
   search = async (event) => {
@@ -118,6 +129,9 @@ export default class News extends Component {
                 }
                 link={element.url}
                 key={element.url}
+                author={element.author ? element.author : "unknown"}
+                date={element.publishedAt}
+                source={element.source.name}
               />
             );
           })}

@@ -10,8 +10,7 @@
   --gradient: linear-gradient(to right, #000428, #004e92);
   --text: #1c1c1c;
   --other: #eee;
-  /* --nav: #010a2b; */
-  --nav: #000;
+  --nav: #010a2b;
   --blue: #070033;
 }
 /* ################################
@@ -22,7 +21,6 @@ header {
   justify-content: space-between;
   background: var(--nav);
   align-items: center;
-  /* overflow: hidden; */
   position: sticky;
   top: 0;
   z-index: 9999;
@@ -92,6 +90,13 @@ div.card {
   border: 2px solid var(--text);
   border-radius: 0.5rem;
   margin: 1rem auto;
+  position: relative;
+}
+.card-cont span {
+  display: block;
+  font-size: 1.4rem;
+  margin: 1.5rem 0;
+  color: rgba(0, 0, 0, 0.733);
 }
 div.card-img {
   height: 20rem;
@@ -160,6 +165,15 @@ form.search input[type="submit"] {
   outline: none;
   font-size: 1.6rem;
 }
+.source {
+  font-size: 1.4rem;
+  background: var(--color);
+  position: absolute;
+  top: -1%;
+  right: -10%;
+  padding: 0.5rem;
+  border-radius: 0.5rem;
+}
 /* ################################### */
 /* Spinner */
 /* ################################### */
@@ -176,6 +190,7 @@ Media Queries
 @media only screen and (max-width: 980px) {
   header.header {
     position: relative;
+    overflow: hidden;
   }
   .mobile-navbar-btn {
     display: block;
@@ -201,6 +216,11 @@ Media Queries
     pointer-events: none;
     opacity: 0;
     transition: all 0.3s ease-in;
+  }
+  .dropdown {
+    position: static;
+    top: 0;
+    transform: translate(10px, 10px);
   }
   nav .nav-items {
     flex-direction: column;

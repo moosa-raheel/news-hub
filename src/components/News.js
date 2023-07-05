@@ -10,7 +10,11 @@ export default class News extends Component {
       page: 1,
     };
   }
-  componentDidMount = async () => {
+  updateNews = async () => {
+    this.setState({
+      loading: true,
+      article: [],
+    });
     const a = fetch(
       `https://newsapi.org/v2/everything?q=${
         this.keyword ? this.keyword : this.props.cat
@@ -26,65 +30,25 @@ export default class News extends Component {
       numarticle: data.totalResults,
     });
   };
+  componentDidMount = async () => {
+    this.updateNews();
+  };
   keyword = "";
   prev = async () => {
-    this.setState({ loading: true, article: [] });
-    try {
-      const a = fetch(
-        `https://newsapi.org/v2/everything?q=${
-          this.keyword ? this.keyword : this.props.cat
-        }&sortBy=publishedAt&apiKey=264d29253b47449098440fda320fb10d&page=${
-          this.state.page - 1
-        } &pagesize=10`
-      );
-      const b = (await a).json();
-      const c = await b;
-      this.setState({
-        page: this.state.page - 1,
-        article: c.articles,
-        loading: false,
-      });
-    } catch (error) {
-      console.log(error);
-    }
+    await this.setState({
+      page: this.state.page - 1,
+    });
+    this.updateNews();
   };
   next = async () => {
-    try {
-      this.setState({ loading: true, article: [] });
-      if (this.state.page > Math.ceil(this.state.numarticle) / 20) {
-      } else {
-        const a = fetch(
-          `https://newsapi.org/v2/everything?q=${
-            this.keyword ? this.keyword : this.props.cat
-          }&sortBy=publishedAt&apiKey=264d29253b47449098440fda320fb10d&page=${
-            this.state.page + 1
-          } &pagesize=10`
-        );
-        const b = (await a).json();
-        const c = await b;
-        this.setState({
-          page: this.state.page + 1,
-          article: c.articles,
-          loading: false,
-        });
-      }
-    } catch (error) {
-      console.log(error);
-    }
+    await this.setState({
+      page: this.state.page + 1,
+    });
+    this.updateNews();
   };
   search = async (event) => {
     this.keyword = document.querySelector("#search").value;
-    fetch(
-      `https://newsapi.org/v2/everything?q=${this.keyword}&sortBy=publishedAt&apiKey=264d29253b47449098440fda320fb10d&page=${this.state.page}&pagesize=10`
-    )
-      .then((response) => response.json())
-      .then((data) => {
-        this.setState({
-          article: data.articles,
-          loading: false,
-          numarticle: data.totalResults,
-        });
-      });
+    this.updateNews();
     event.preventDefault();
   };
   btnDisable = {

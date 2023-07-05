@@ -10,26 +10,22 @@ export default class News extends Component {
       page: 1,
     };
   }
-  componentDidMount() {
-    fetch(
+  componentDidMount = async () => {
+    const a = fetch(
       `https://newsapi.org/v2/everything?q=${
         this.keyword ? this.keyword : this.props.cat
       }&sortBy=publishedAt&apiKey=264d29253b47449098440fda320fb10d&page=${
         this.state.page
       }&pagesize=10`
-    )
-      .then((response) => response.json())
-      .then((data) => {
-        this.setState({
-          article: data.articles,
-          loading: false,
-          numarticle: data.totalResults,
-        });
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  }
+    );
+    const b = (await a).json();
+    const data = await b;
+    this.setState({
+      article: data.articles,
+      loading: false,
+      numarticle: data.totalResults,
+    });
+  };
   keyword = "";
   prev = async () => {
     this.setState({ loading: true, article: [] });

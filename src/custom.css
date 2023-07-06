@@ -127,24 +127,6 @@ div.card-cont h3 {
   justify-content: space-between;
   flex-wrap: wrap;
 }
-.button {
-  display: flex;
-  justify-content: space-between;
-}
-.button button {
-  padding: 1rem 2rem;
-  background: var(--blue);
-  color: var(--other);
-  font-weight: 700;
-  border: none;
-  outline: none;
-  margin-bottom: 1rem;
-  font-size: 1.6rem;
-}
-button span {
-  font-size: 2rem;
-  font-weight: 900;
-}
 form.search {
   display: flex;
   justify-content: space-between;
@@ -178,7 +160,7 @@ form.search input[type="submit"] {
 /* Spinner */
 /* ################################### */
 .spinner {
-  width: 50%;
+  width: 10%;
   margin: auto;
 }
 .spinner img {
@@ -252,6 +234,17 @@ Media Queries
     float: none;
     width: 100%;
   }
+}
+/* #####################################
+No more data
+#################################### */
+.nodata {
+  background: #616661;
+}
+.nodata h1 {
+  text-align: center;
+  font-size: 3rem;
+  color: var(--other);
 }
 /* ################################## */
 /* Utilities */

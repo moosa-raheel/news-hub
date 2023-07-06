@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import Navbar from "./components/Navbar";
 import News from "./components/News";
+import NomoreData from "./components/NoData";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 
 export default class App extends Component {
@@ -10,7 +11,11 @@ export default class App extends Component {
         <BrowserRouter>
           <Navbar />
           <Routes>
-            <Route path="/" element={<News cat="Pakistan" />} />
+            <Route
+              path="/"
+              element={<News cat="Pakistan" />}
+              key={"pakistan"}
+            />
             <Route
               path="/health"
               element={<News cat="health" key={"health"} />}

@@ -47,6 +47,15 @@ export default class Navbar extends Component {
                   <li>
                     <Link to="/sports">Sports</Link>
                   </li>
+                  <li>
+                    <Link to="/business">Business</Link>
+                  </li>
+                  <li>
+                    <Link to="/politics">Politics</Link>
+                  </li>
+                  <li>
+                    <Link to="/science">Science</Link>
+                  </li>
                 </ul>
               </li>
               <li className="nav-item">

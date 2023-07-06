@@ -27,6 +27,18 @@ export default class App extends Component {
               path="/sports"
               element={<News cat="sports" key={"sports"} />}
             />
+            <Route
+              path="/science"
+              element={<News cat="science" key={"science"} />}
+            />
+            <Route
+              path="/business"
+              element={<News cat="business" key={"business"} />}
+            />
+            <Route
+              path="/politics"
+              element={<News cat="politics" key={"politics"} />}
+            />
           </Routes>
         </BrowserRouter>
       </>

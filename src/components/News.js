@@ -3,6 +3,7 @@ import NewsItem from "./NewsItem";
 import Spinner from "./Spinner";
 import InfiniteScroll from "react-infinite-scroll-component";
 import NoData from "./NoData";
+import TechnicalIssue from "./TechnicalIssue";
 export default class News extends Component {
   constructor() {
     super();
@@ -13,27 +14,36 @@ export default class News extends Component {
       numarticle: 0,
       requests: 1,
       nomoreData: false,
+      tIssuse: false,
     };
   }
   updateNews = async () => {
-    this.setState({
-      loading: true,
-      article: [],
-    });
-    const a = fetch(
-      `https://newsapi.org/v2/everything?q=${
-        this.keyword ? this.keyword : this.props.cat
-      }&sortBy=publishedAt&apiKey=264d29253b47449098440fda320fb10d&page=${
-        this.state.page
-      }&pagesize=10`
-    );
-    const b = (await a).json();
-    const data = await b;
-    this.setState({
-      article: data.articles,
-      loading: false,
-      numarticle: data.totalResults,
-    });
+    try {
+      this.setState({
+        loading: true,
+        article: [],
+      });
+      const a = await fetch(
+        `https://newsapi.org/v2/everything?q=${
+          this.keyword ? this.keyword : this.props.cat
+        }&sortBy=publishedAt&apiKey=${this.props.apikey}&page=${
+          this.state.page
+        }&pagesize=10`
+      );
+      const b = (await a).json();
+      const data = await b;
+      this.setState({
+        article: data.articles,
+        loading: false,
+        numarticle: data.totalResults,
+      });
+    } catch (err) {
+      this.setState({ loading: false });
+      console.log(err);
+      this.setState({
+        tIssuse: true,
+      });
+    }
   };
   componentDidMount = async () => {
     this.updateNews();
@@ -57,24 +67,22 @@ export default class News extends Component {
       await this.setState({
         page: this.state.page + 1,
       });
-      const a = fetch(
+      const a = await fetch(
         `https://newsapi.org/v2/everything?q=${
           this.keyword ? this.keyword : this.props.cat
-        }&sortBy=publishedAt&apiKey=264d29253b47449098440fda320fb10d&page=${
+        }&sortBy=publishedAt&apiKey=${this.props.apikey}&page=${
           this.state.page
         }&pagesize=10`
       );
-      const b = (await a).json();
+      const b = a.json();
       const data = await b;
       await this.setState({
         article: this.state.article.concat(data.articles),
         requests: this.state.requests + 1,
       });
-      console.log(this.state.requests);
     } else {
       await this.setState({
         nomoreData: true,
-        loading: false,
       });
     }
   };
@@ -86,12 +94,13 @@ export default class News extends Component {
           <input type="submit" value="Search" />
         </form>
         <h1 className="text-center news-head">News-Hub - Headlines</h1>
-        {this.state.article.length < 1 ? <Spinner /> : ""}
+        {this.state.tIssuse ? <TechnicalIssue /> : ""}
+        {!this.state.loading ? "" : <Spinner />}
         <InfiniteScroll
           dataLength={this.state.article.length}
           next={this.fetchMoreData}
           hasMore={this.state.article.length !== this.state.numarticle}
-          loader={!this.state.loading ? <Spinner /> : "loading"}
+          loader={!this.state.nomoreData ? <Spinner /> : ""}
         >
           <div className="container main">
             {this.state.article.map((element, index) => {

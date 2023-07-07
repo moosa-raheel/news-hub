@@ -5,7 +5,11 @@ export default class TechnicalIssue extends Component {
     return (
       <>
         <div className="tIssue">
-          <h1>! We Have Some Technical Issue Please Try Again After Moment</h1>
+          <h1>
+            ! We Have Some Technical Issue Please Try Again After Moment
+            <br />
+            Or Check Your Internet Connection
+          </h1>
         </div>
       </>
     );

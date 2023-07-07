@@ -30,13 +30,16 @@ export default class News extends Component {
           this.state.page
         }&pagesize=10`
       );
+      this.props.setProg(50);
       const b = (await a).json();
       const data = await b;
+      this.props.setProg(70);
       this.setState({
         article: data.articles,
         loading: false,
         numarticle: data.totalResults,
       });
+      this.props.setProg(100);
     } catch (err) {
       this.setState({ loading: false });
       console.log(err);

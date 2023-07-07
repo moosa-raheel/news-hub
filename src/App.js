@@ -2,24 +2,50 @@ import React, { Component } from "react";
 import Navbar from "./components/Navbar";
 import News from "./components/News";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
+import LoadingBar from "react-top-loading-bar";
 
 export default class App extends Component {
+  constructor() {
+    super();
+    this.state = {
+      prgress: 10,
+    };
+  }
+  setProgress = (progress) => {
+    this.setState({ prgress: progress });
+  };
   apiKey = process.env.REACT_APP_API_KEY;
   render() {
     return (
       <>
         <BrowserRouter>
+          <LoadingBar
+            color="#f11946"
+            progress={this.state.prgress}
+            height={3}
+          />
           <Navbar />
           <Routes>
             <Route
               path="/"
-              element={<News cat="Pakistan" apikey={this.apiKey} />}
+              element={
+                <News
+                  cat="Pakistan"
+                  apikey={this.apiKey}
+                  setProg={this.setProgress}
+                />
+              }
               key={"pakistan"}
             />
             <Route
               path="/health"
               element={
-                <News cat="health" key={"health"} apikey={this.apiKey} />
+                <News
+                  cat="health"
+                  key={"health"}
+                  apikey={this.apiKey}
+                  setProg={this.setProgress}
+                />
               }
             />
             <Route
@@ -29,6 +55,7 @@ export default class App extends Component {
                   cat="entertainment"
                   key={"entertainment"}
                   apikey={this.apiKey}
+                  setProg={this.setProgress}
                 />
               }
             />
@@ -39,31 +66,52 @@ export default class App extends Component {
                   cat="technology"
                   key={"technology"}
                   apikey={this.apiKey}
+                  setProg={this.setProgress}
                 />
               }
             />
             <Route
               path="/sports"
               element={
-                <News cat="sports" key={"sports"} apikey={this.apiKey} />
+                <News
+                  cat="sports"
+                  key={"sports"}
+                  apikey={this.apiKey}
+                  setProg={this.setProgress}
+                />
               }
             />
             <Route
               path="/science"
               element={
-                <News cat="science" key={"science"} apikey={this.apiKey} />
+                <News
+                  cat="science"
+                  key={"science"}
+                  apikey={this.apiKey}
+                  setProg={this.setProgress}
+                />
               }
             />
             <Route
               path="/business"
               element={
-                <News cat="business" key={"business"} apikey={this.apiKey} />
+                <News
+                  cat="business"
+                  key={"business"}
+                  apikey={this.apiKey}
+                  setProg={this.setProgress}
+                />
               }
             />
             <Route
               path="/politics"
               element={
-                <News cat="politics" key={"politics"} apikey={this.apiKey} />
+                <News
+                  cat="politics"
+                  key={"politics"}
+                  apikey={this.apiKey}
+                  setProg={this.setProgress}
+                />
               }
             />
           </Routes>

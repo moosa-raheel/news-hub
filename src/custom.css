@@ -91,6 +91,7 @@ div.card {
   border-radius: 0.5rem;
   margin: 1rem auto;
   position: relative;
+  overflow: hidden;
 }
 .card-cont span {
   display: block;
@@ -146,6 +147,7 @@ form.search input[type="submit"] {
   border: none;
   outline: none;
   font-size: 1.6rem;
+  cursor: pointer;
 }
 .source {
   font-size: 1.4rem;
@@ -254,11 +256,25 @@ T issue
   max-width: 1200px;
   width: 90%;
   margin: 2rem auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 .tIssue h1 {
   color: red;
   text-align: center;
   font-size: 3rem;
+}
+.tIssue button.btn {
+  padding: 1rem;
+  color: #eee;
+  background: var(--blue);
+  outline: none;
+  border: none;
+  cursor: pointer;
+  border-radius: 0.5rem;
+  text-align: center;
+  margin-top: 1rem;
 }
 /* ################################## */
 /* Utilities */
@@ -283,4 +299,19 @@ a.btn {
 }
 a.btn:hover {
   background: var(--color);
+}
+/* ##################################
+No Result Found
+################################## */
+.no-result {
+  color: #ffe620;
+  background: var(--text);
+  width: 100%;
+  margin: 2rem 0;
+  display: flex;
+  align-items: center;
+  height: 50vh;
+  justify-content: center;
+  border-radius: 0.5rem;
+  font-size: 1.5rem;
 }

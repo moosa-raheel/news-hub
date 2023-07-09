@@ -4,6 +4,7 @@ import Spinner from "./Spinner";
 import InfiniteScroll from "react-infinite-scroll-component";
 import NoData from "./NoData";
 import TechnicalIssue from "./TechnicalIssue";
+import NoResultFound from "./NoResultFound";
 export default class News extends Component {
   constructor() {
     super();
@@ -15,10 +16,12 @@ export default class News extends Component {
       requests: 1,
       nomoreData: false,
       tIssuse: false,
+      noResultFound: false,
     };
   }
   updateNews = async () => {
     try {
+      this.props.setProg(10);
       this.setState({
         loading: true,
         article: [],
@@ -38,32 +41,28 @@ export default class News extends Component {
         article: data.articles,
         loading: false,
         numarticle: data.totalResults,
+        noResultFound: data.articles.length > 0 ? false : true,
       });
       this.props.setProg(100);
     } catch (err) {
+      this.props.setProg(10);
       this.setState({ loading: false });
       console.log(err);
+      this.props.setProg(100);
       this.setState({
         tIssuse: true,
       });
+      this.props.setProg(100);
     }
   };
   componentDidMount = async () => {
     this.updateNews();
   };
   keyword = "";
-  search = async (event) => {
+  search = (event) => {
+    event.preventDefault();
     this.keyword = document.querySelector("#search").value;
     this.updateNews();
-    event.preventDefault();
-  };
-  btnDisable = {
-    opacity: 0.5,
-    cursor: "not-allowed",
-  };
-  btnEnable = {
-    opacity: 1,
-    cursor: "pointer",
   };
   fetchMoreData = async () => {
     if (this.state.requests <= 10) {
@@ -79,12 +78,12 @@ export default class News extends Component {
       );
       const b = a.json();
       const data = await b;
-      await this.setState({
+      this.setState({
         article: this.state.article.concat(data.articles),
         requests: this.state.requests + 1,
       });
     } else {
-      await this.setState({
+      this.setState({
         nomoreData: true,
       });
     }
@@ -96,7 +95,20 @@ export default class News extends Component {
           <input type="search" id="search" placeholder="Search News" required />
           <input type="submit" value="Search" />
         </form>
-        <h1 className="text-center news-head">News-Hub - Headlines</h1>
+        {!this.state.noResultFound ? (
+          <h1 className="text-center news-head">
+            {" "}
+            News-Hub Top Headlines{" "}
+            {this.keyword ? `About ${this.keyword}` : this.props.heading}
+          </h1>
+        ) : (
+          ""
+        )}
+        {this.state.noResultFound ? (
+          <NoResultFound keyword={this.keyword} />
+        ) : (
+          ""
+        )}
         {this.state.tIssuse ? <TechnicalIssue /> : ""}
         {!this.state.loading ? "" : <Spinner />}
         <InfiniteScroll

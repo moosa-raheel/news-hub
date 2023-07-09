@@ -41,6 +41,7 @@ export default class App extends Component {
               path="/health"
               element={
                 <News
+                  heading={"About Health"}
                   cat="health"
                   key={"health"}
                   apikey={this.apiKey}
@@ -52,6 +53,7 @@ export default class App extends Component {
               path="/entertainment"
               element={
                 <News
+                  heading={"About Entertainment"}
                   cat="entertainment"
                   key={"entertainment"}
                   apikey={this.apiKey}
@@ -63,6 +65,7 @@ export default class App extends Component {
               path="/tech"
               element={
                 <News
+                  heading={"About Technology"}
                   cat="technology"
                   key={"technology"}
                   apikey={this.apiKey}
@@ -74,6 +77,7 @@ export default class App extends Component {
               path="/sports"
               element={
                 <News
+                  heading={"About Sports"}
                   cat="sports"
                   key={"sports"}
                   apikey={this.apiKey}
@@ -85,6 +89,7 @@ export default class App extends Component {
               path="/science"
               element={
                 <News
+                  heading={"About Science"}
                   cat="science"
                   key={"science"}
                   apikey={this.apiKey}
@@ -96,6 +101,7 @@ export default class App extends Component {
               path="/business"
               element={
                 <News
+                  heading={"About Business"}
                   cat="business"
                   key={"business"}
                   apikey={this.apiKey}
@@ -108,6 +114,7 @@ export default class App extends Component {
               element={
                 <News
                   cat="politics"
+                  heading={"About Politics"}
                   key={"politics"}
                   apikey={this.apiKey}
                   setProg={this.setProgress}

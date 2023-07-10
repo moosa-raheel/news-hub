@@ -46,6 +46,18 @@ nav ul {
   justify-content: space-around;
   list-style: none;
 }
+nav ul li {
+  display: block;
+  font-size: 3rem;
+  color: var(--other);
+  padding: 0.3rem 1rem;
+  transition: all 0.3s ease-in;
+  font-weight: 600;
+  cursor: pointer;
+}
+nav ul li:hover {
+  color: var(--color);
+}
 .mobile-navbar-btn {
   display: none;
   background: transparent;

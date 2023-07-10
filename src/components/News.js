@@ -28,7 +28,9 @@ export default class News extends Component {
       });
       const a = await fetch(
         `https://newsapi.org/v2/everything?q=${
-          this.keyword ? this.keyword : this.props.cat
+          this.keyword
+            ? this.keyword
+            : `${this.props.cat ? this.props.cat : "pakistan"}`
         }&sortBy=publishedAt&apiKey=${this.props.apikey}&page=${
           this.state.page
         }&pagesize=10`
@@ -58,6 +60,13 @@ export default class News extends Component {
   componentDidMount = async () => {
     this.updateNews();
   };
+  componentDidUpdate() {
+    if (this.keyword) {
+      document.title = `News-Hub - ${this.keyword}`;
+    } else {
+      document.title = `News-Hub - ${this.props.cat ? this.props.cat : "Home"}`;
+    }
+  }
   keyword = "";
   search = (event) => {
     event.preventDefault();
@@ -71,7 +80,9 @@ export default class News extends Component {
       });
       const a = await fetch(
         `https://newsapi.org/v2/everything?q=${
-          this.keyword ? this.keyword : this.props.cat
+          this.keyword
+            ? this.keyword
+            : `${this.props.cat ? this.props.cat : "pakistan"}`
         }&sortBy=publishedAt&apiKey=${this.props.apikey}&page=${
           this.state.page
         }&pagesize=10`

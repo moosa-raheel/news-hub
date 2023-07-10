@@ -28,13 +28,7 @@ export default class App extends Component {
           <Routes>
             <Route
               path="/"
-              element={
-                <News
-                  cat="Pakistan"
-                  apikey={this.apiKey}
-                  setProg={this.setProgress}
-                />
-              }
+              element={<News apikey={this.apiKey} setProg={this.setProgress} />}
               key={"pakistan"}
             />
             <Route

@@ -20,6 +20,9 @@ export default class Navbar extends Component {
     const header = document.getElementsByClassName("header")[0];
     header.classList.toggle("active");
   }
+  working() {
+    alert("We Still Working On It");
+  }
   render() {
     return (
       <>
@@ -33,7 +36,7 @@ export default class Navbar extends Component {
                 <Link to="/">{this.props.one}</Link>
               </li>
               <li className="nav-item">
-                <a href="/about">{this.props.two}</a>
+                {this.props.two}
                 <ul className="dropdown">
                   <li>
                     <Link to="/entertainment">Entertainment</Link>
@@ -58,11 +61,11 @@ export default class Navbar extends Component {
                   </li>
                 </ul>
               </li>
-              <li className="nav-item">
-                <a href="/gallery">{this.props.three}</a>
+              <li className="nav-item" onClick={this.working}>
+                {this.props.three}
               </li>
-              <li className="nav-item">
-                <a href="/conatct">{this.props.four}</a>
+              <li className="nav-item" onClick={this.working}>
+                {this.props.four}
               </li>
             </ul>
           </nav>

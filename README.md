@@ -26,7 +26,7 @@ This Site is created by **Moosa Raheel**
     git clone https://github.com/moosa-raheel/news-hub.git
     cd news-hub
     npm install
-    echo "REACT_APP_API_KEY = 'Api Key'" > .env.local
+    echo REACT_APP_API_KEY = 'Api Key' > .env.local
     npm start
 ```
 

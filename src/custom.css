@@ -13,86 +13,80 @@
   --nav: #010a2b;
   --blue: #070033;
 }
+body {
+  overflow-x: hidden;
+}
 /* ################################
 Navigation Bar
 ################################ */
 header {
+  padding: 0 6rem;
   display: flex;
   justify-content: space-between;
-  background: var(--nav);
+  background: var(--blue);
   align-items: center;
-  position: sticky;
-  top: 0;
-  z-index: 9999;
+  min-height: 6.6rem;
 }
-header div.logo img {
-  width: 12rem;
+header .logo {
+  width: 10rem;
 }
-nav.navbar {
-  width: 60%;
+header .logo img {
+  width: 100%;
 }
-nav ul li a {
-  font-size: 3rem;
-  text-decoration: none;
-  color: var(--other);
+header nav ul {
   position: relative;
-  display: block;
-  padding: 0.3rem 1rem;
-  transition: all 0.3s ease-in;
-  font-weight: 600;
 }
-nav ul {
-  display: flex;
-  justify-content: space-around;
+header nav ul li {
+  position: relative;
   list-style: none;
+  float: left;
 }
-nav ul li {
-  display: block;
-  font-size: 3rem;
+header nav ul a {
+  text-decoration: none;
+  padding: 2.5rem 2rem;
   color: var(--other);
-  padding: 0.3rem 1rem;
-  transition: all 0.3s ease-in;
-  font-weight: 600;
-  cursor: pointer;
-}
-nav ul li:hover {
-  color: var(--color);
-}
-.mobile-navbar-btn {
-  display: none;
-  background: transparent;
-  cursor: pointer;
-  border: none;
-}
-i.close {
-  display: none;
-}
-.nav-item {
-  position: relative;
-}
-.dropdown {
   display: flex;
-  flex-direction: column;
-  text-align: center;
+  font-size: 2rem;
+  font-weight: 700;
+}
+header nav ul li ul {
   position: absolute;
-  bottom: 100;
+  width: 20rem;
+  background: var(--blue);
+  z-index: 99;
   left: 50%;
   transform: translateX(-50%);
-  background: var(--nav);
-  line-height: 4rem;
-  visibility: hidden;
-  height: auto;
+  top: 100%;
+  display: none;
 }
-.dropdown li {
-  visibility: hidden;
-  transition: background 0.5s ease;
+header nav ul li ul li {
+  width: 100%;
+  border: 1px solid var(--other);
 }
-.nav-item:hover .dropdown li {
-  visibility: visible;
-  background: var(--nav);
+header ul li:focus-within > ul {
+  display: block;
 }
-.nav-item a:hover {
-  color: var(--color);
+nav ul li span {
+  font-weight: 900;
+}
+.icons {
+  display: none;
+}
+.icons .close {
+  display: none;
+}
+nav ul li a:hover {
+  background: var(--color);
+}
+.icons {
+  font-size: 4rem;
+  color: #fff;
+}
+header.active i.open {
+  display: none;
+}
+header.active i.close {
+  display: block;
 }
 /* ##################################### */
 /* News .item */
@@ -183,70 +177,42 @@ form.search input[type="submit"] {
 /* ################################
 Media Queries
 ################################# */
-@media only screen and (max-width: 980px) {
-  header.header {
+@media only screen and (max-width: 768px) {
+  header {
     position: relative;
-    overflow: hidden;
   }
-  .mobile-navbar-btn {
-    display: block;
-    color: var(--other);
-    font-size: 5rem;
+  header nav {
+    position: fixed;
+    top: 100%;
+    background: var(--blue);
+    width: 100%;
     z-index: 99;
+    left: 100%;
+    transition: 0.3s ease;
   }
-  .fa-solid {
-    padding: 0.2rem 0.5rem;
-  }
-  nav.navbar {
-    width: 100%;
-    height: 100vh;
+  header.active nav {
     position: absolute;
-    top: 0;
     left: 0;
-    background: var(--gradient);
+  }
+  header.active ul {
+    height: 100%;
+  }
+  nav > ul {
     display: flex;
-    justify-content: center;
-    align-items: center;
-    transform: translateX(100%);
-    visibility: hidden;
-    pointer-events: none;
-    opacity: 0;
-    transition: all 0.3s ease-in;
-  }
-  .dropdown {
-    position: static;
-    top: 0;
-    transform: translate(10px, 10px);
-  }
-  nav .nav-items {
     flex-direction: column;
-    align-items: center;
+    justify-content: space-between;
   }
-  nav .nav-items .nav-item {
-    margin: 1rem 0;
-  }
-  nav ul li a {
-    font-size: 5rem;
-  }
-  .active .navbar {
-    transform: translateX(0%);
-    visibility: visible;
-    pointer-events: auto;
-    opacity: 1;
-  }
-  .active .open {
-    display: none;
-  }
-  .active .close {
-    display: block;
-  }
-  header.active {
-    overflow: visible;
-  }
-  div.img-box,
-  div.text {
+  header nav ul li {
     float: none;
+    width: 100vw;
+    align-content: space-between;
+  }
+  header nav ul li ul {
+    position: relative;
     width: 100%;
+  }
+  header .icons {
+    display: block;
   }
 }
 /* #####################################
